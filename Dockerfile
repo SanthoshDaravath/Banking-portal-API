@@ -1,8 +1,9 @@
 # Build stage
-FROM maven:3.9.9-eclipse-temurin-25-alpine AS build
+FROM eclipse-temurin:25-jdk-alpine AS build
+RUN apk add --no-cache maven
 WORKDIR /app
 COPY . .
-RUN ./mvnw -DskipTests clean package
+RUN mvn -DskipTests clean package
 
 # Runtime stage
 FROM eclipse-temurin:25-jre-alpine
